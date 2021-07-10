@@ -133,7 +133,42 @@ function App() {
     'Maroon','Red','Orange','Yellow','Olive','Green','Purple','Fuchsia','Lime','Teal','Aqua','Blue','Navy','Black','Silver','White'
   ];
   const defaultOption = options[0];
+  var timeColorListMobile = colorTimeArrayClean.map((el) => (
+    // identify each element with an id to minimize DOM re-renders when deleting
+    <div>
+      <h3>Phase {el.id + 1}</h3>
+    
+    <div className="flexContainerTimeColor" key={el.id}>
+      <div className="flexsideLeft">
+        <h4>Duration (sec): </h4>
+      </div>
+    
+      <div className="flexsideLeft">
+        <input className="form-control mt-2" name={el.id} onChange={handleTimeChange}></input> 
+      </div>
+    </div>
+    <div className="flexContainerTimeColor" key={el.id}>
+      
 
+      <div className="flexsideLeft">
+        <h4>Color: </h4>
+      </div>
+    
+      <div className="flexsideLeft">
+        <Dropdown options={options} onChange={(e) => handleColorChange(e,el.id)} id={el.id} value={defaultOption} placeholder="Select an option" />
+      </div>
+    </div>
+    <div className="flexContainerTimeColor" key={el.id}>
+      <div className="flexsideLeft">
+        <h4>-OR- Hex Color:</h4>
+      </div>
+      <div className="flexsideLeft">
+        <input className="form-control mt-2" id={el.id} onChange={handleHexColorChange} placeholder="#FFFFFF"></input> 
+      </div>
+      {/* <button className="btn btn-danger" onClick={() => {props.deleteMessage(mes.id)}}>Delete</button> */}
+    </div>
+    </div>
+  ))
   var timeColorList = colorTimeArrayClean.map((el) => (
     // identify each element with an id to minimize DOM re-renders when deleting
     <div>
@@ -165,11 +200,11 @@ function App() {
     </div>
     </div>
   ))
-    
+  var w = window.innerWidth;
   return (
    
     <div className="App">
-      {timeColorList}
+      { w > 700 ? timeColorList : timeColorListMobile}
       <br/>
       <br/>
       <button type="button" className="btn btn-primary btn-lg" onClick={() => handleAddPhase()}>Add Another Phase</button>
